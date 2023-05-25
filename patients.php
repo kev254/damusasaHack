@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Patient Management</title>
+  <title>Damu Sasa</title>
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
 </head>
 <body>
@@ -58,7 +58,7 @@
           <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#medicalHistoryModal-<?php echo $patientID; ?>">
             Add Medical History
           </button>
-          <a href="checkin_patient.php?patient_id=<?php echo $patientID; ?>" class="btn btn-success">Check-in</a>
+          <a href="checkin_patient.php?patient_id=<?php echo $patientID; ?>" class="btn btn-danger">Check-in</a>
         </div>
       </div>
     </div>

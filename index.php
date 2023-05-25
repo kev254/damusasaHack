@@ -40,7 +40,9 @@ if(isset($_POST['submit'])) {
 	}
 } else {
 ?>
-	<p><font size="+2">Login</font></p>
+
+<centre>	
+<p><font size="+2">Login</font></p>
 	<form name="form1" method="post" action="">
 		<table width="75%" border="0">
 			<tr> 
@@ -56,7 +58,10 @@ if(isset($_POST['submit'])) {
 				<td><input type="submit" name="submit" value="Submit"></td>
 			</tr>
 		</table>
+		
 	</form>
+	
+</centre>
 <?php
 }
 ?>
