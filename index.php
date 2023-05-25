@@ -1,32 +1,64 @@
 <?php session_start(); ?>
 <html>
 <head>
-	<title>Homepage</title>
-	<link href="style.css" rel="stylesheet" type="text/css">
+	<title>Login</title>
 </head>
 
 <body>
-	<div id="header">
-		Welcome to my page!
-	</div>
-	<?php
-	if(isset($_SESSION['valid'])) {			
-		include("connection.php");					
-		$result = mysqli_query($mysqli, "SELECT * FROM login");
-	?>
-				
-		Welcome <?php echo $_SESSION['name'] ?> ! <a href='logout.php'>Logout</a><br/>
-		<br/>
-		<a href='view.php'>View and Add Products</a>
-		<br/><br/>
-	<?php	
+<?php
+include("connection.php");
+
+if(isset($_POST['submit'])) {
+	$user = mysqli_real_escape_string($mysqli, $_POST['username']);
+	$pass = mysqli_real_escape_string($mysqli, $_POST['password']);
+
+	if($user == "" || $pass == "") {
+		echo "Either username or password field is empty.";
+		echo "<br/>";
+		echo "<a href='login.php'>Go back</a>";
 	} else {
-		echo "You must be logged in to view this page.<br/><br/>";
-		echo "<a href='login.php'>Login</a> | <a href='register.php'>Register</a>";
+		$result = mysqli_query($mysqli, "SELECT * FROM users WHERE username='$user' AND password=md5('$pass')")
+					or die("Could not execute the select query.");
+		
+		$row = mysqli_fetch_assoc($result);
+		
+		if(is_array($row) && !empty($row)) {
+			$validuser = $row['username'];
+			$_SESSION['valid'] = $validuser;
+			$_SESSION['name'] = $row['name'];
+			$_SESSION['id'] = $row['id'];
+			$_SESSION['role'] = $row['role'];
+		} else {
+			echo "Invalid username or password.";
+			echo "<br/>";
+			echo "<a href='login.php'>Go back</a>";
+		}
+
+		if(isset($_SESSION['valid'])) {
+			header('Location: patients.php');			
+		}
 	}
-	?>
-	<div id="footer">
-		Created by <a href="http://blog.chapagain.com.np" title="Mukesh Chapagain">Mukesh Chapagain</a>
-	</div>
+} else {
+?>
+	<p><font size="+2">Login</font></p>
+	<form name="form1" method="post" action="">
+		<table width="75%" border="0">
+			<tr> 
+				<td width="10%">Username</td>
+				<td><input type="text" name="username"></td>
+			</tr>
+			<tr> 
+				<td>Password</td>
+				<td><input type="password" name="password"></td>
+			</tr>
+			<tr> 
+				<td>&nbsp;</td>
+				<td><input type="submit" name="submit" value="Submit"></td>
+			</tr>
+		</table>
+	</form>
+<?php
+}
+?>
 </body>
 </html>
