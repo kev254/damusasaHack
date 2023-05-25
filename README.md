@@ -1,8 +1,11 @@
 # damusasaHackathon
 
 how to run 
-create database name it damu_sasa
-import the sql file dbg
-clone the repo to htdocs folder 
+<ul>
+  <li>create database name it damu_sasa</li>
+  <li>import the sql file db </li>
+<li>clone the repo to htdocs folder</li>
 
-run on localhost/folder name
+<li>run on localhost/folder name</li>
+  
+  <ul>
